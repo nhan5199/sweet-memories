@@ -1,0 +1,28 @@
+.add-item-button{
+  position:fixed;
+  bottom:40px;
+  right:40px;
+
+  height:60px;
+  width:60px;
+  border-radius:50%;
+
+  background:var(--primary-color);
+  border:none;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  cursor:pointer;
+  z-index:10;
+}
+
+.add-item-button span{
+  font-size:32px;
+  color:white;
+}
+
+.add-item-button:hover{
+  transform:scale(1.1);
+}

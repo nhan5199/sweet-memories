@@ -1,0 +1,138 @@
+.timeline-root{
+  min-height:100vh;
+  max-width:90svw;
+  position:relative;
+}
+
+/* YEAR SELECTOR */
+
+.year-selector{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+
+  transition:.6s ease;
+}
+
+.timeline-root.year-open .year-selector{
+  top:30px;
+  left:0;
+  transform:none;
+  flex-direction:row;
+  gap:10px;
+}
+
+/* YEAR BUTTON */
+
+.year-pill{
+  font-size:32px;
+  font-weight:700;
+
+  padding:10px 20px;
+
+  border:2px solid black;
+  border-radius:40px;
+
+  cursor:pointer;
+
+  transition:.3s;
+}
+
+.year-pill:hover{
+  background:black;
+  color:white;
+}
+
+.year-pill.active{
+  background:black;
+  color:white;
+}
+
+/* YEAR VIEW */
+
+.year-view{
+  padding-top:120px;
+  max-width:100%;
+  margin:auto;
+}
+
+.year-view-header{
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.back-button{
+  border:none;
+  background:none;
+  font-size:18px;
+  cursor:pointer;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  gap:10px;
+  flex-direction: row;
+    transition: .75s ease;
+}
+
+.back-button:hover{
+    transform: scale(1.25);
+}
+
+/* MONTH */
+
+.month-title{
+  font-size:24px;
+  margin-bottom:20px;
+}
+
+/* MEMORY GRID */
+
+.memory-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.memory-grid{
+  grid-template-columns:1fr;
+  place-items: center;
+}
+
+.year-pill{
+  font-size:24px;
+}
+
+}
+
+.month-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    cursor:pointer;
+    border-bottom:1px solid #eee;
+}
+
+.month-title{
+    font-size:20px;
+    font-weight:700;
+    display:flex;
+    gap:10px;
+    align-items:center;
+    margin:0;
+    padding:20px 0;
+}
+
+.month-count{
+font-size:14px;
+color:gray;
+}
