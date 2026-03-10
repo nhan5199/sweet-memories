@@ -28,7 +28,7 @@ const MemoryItem = ({ memory, onClose }) => {
     }, 80);
 
     return () => clearInterval(interval);
-  }, []);
+  });
 
   const nextImage = () => {
     if (animating) return;
@@ -184,6 +184,7 @@ close
               onDragStart={(e) => e.preventDefault()}
               className={`image ${index === 0 && animating ? "slide-out" : ""}`}
               style={style}
+              alt="memory-img"
             />
           );
         })}

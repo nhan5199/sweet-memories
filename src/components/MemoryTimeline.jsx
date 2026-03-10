@@ -55,7 +55,7 @@ export default function MemoryTimeline({ memories, onMemoryClick }) {
         {years.map((year) => (
           <div
             key={year}
-            className={`year-pill ${selectedYear == year ? "active" : ""}`}
+            className={`year-pill ${selectedYear === year ? "active" : ""}`}
             onClick={() => setSelectedYear(year)}
           >
             {year}
