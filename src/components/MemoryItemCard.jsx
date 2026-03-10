@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "../styles/memory-item-card.css";
 
 const MemoryItemCard = ({ memory, onClick, onPreviewLoad }) => {
