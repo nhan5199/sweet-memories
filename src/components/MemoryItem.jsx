@@ -17,18 +17,19 @@ const MemoryItem = ({ memory, onClose }) => {
   const startY = useRef(null);
 
   // typing title effect
-  useEffect(() => {
-    let i = 0;
+ useEffect(() => {
+  setTitle("");
+  let i = 0;
 
-    const interval = setInterval(() => {
-      setTitle(memory.name.slice(0, i + 1));
-      i++;
+  const interval = setInterval(() => {
+    setTitle(memory.name.slice(0, i + 1));
+    i++;
 
-      if (i >= memory.name.length) clearInterval(interval);
-    }, 80);
+    if (i >= memory.name.length) clearInterval(interval);
+  }, 80);
 
-    return () => clearInterval(interval);
-  });
+  return () => clearInterval(interval);
+}, [memory.name]);
 
   const nextImage = () => {
     if (animating) return;

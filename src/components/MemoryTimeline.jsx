@@ -35,6 +35,16 @@ export default function MemoryTimeline({ memories, onMemoryClick }) {
     setTimeline(grouped);
   }, [memories]);
 
+  useEffect(() => {
+    setCollapsedMonths({});
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }, [selectedYear]);
+
   const years = Object.keys(timeline).sort((a, b) => b - a);
 
   const toggleMonth = (year, month) => {
@@ -71,28 +81,26 @@ export default function MemoryTimeline({ memories, onMemoryClick }) {
           <div className="year-view-header">
             <button
               className="back-button"
-              onClick={() => setSelectedYear(null)}
+              onClick={() => {setSelectedYear(null); setCollapsedMonths({});}}
             >
               <span className="material-symbols-outlined">
                 arrow_back_ios
               </span>
-              Back
+              Chọn năm
             </button>
           </div>
 
           {Object.keys(timeline[selectedYear])
-            .sort((a, b) => b - a)
+            .sort((a, b) => a - b)
             .map((month, index) => {
 
               const key = `${selectedYear}-${month}`;
 
-              const isCollapsed =
-                collapsedMonths[key] ?? index === 0; // first month collapsed by default
+              const isCollapsed = collapsedMonths[key] ?? index !== 0;
 
-              const monthName = new Date(
-                selectedYear,
-                month
-              ).toLocaleString("default", { month: "long" });
+              const monthName = new Date(selectedYear, month).toLocaleString("vi-VN", {
+                month: "long",
+              }).replace("tháng", "Tháng");;
 
               const memories = timeline[selectedYear][month];
 

@@ -28,7 +28,7 @@ export default function PostData() {
   };
 
   return (
-    <>
+    <div className="container">
       {/* ADD BUTTON */}
       <button
         className="add-item-button"
@@ -68,6 +68,6 @@ export default function PostData() {
           setDisplayMemoryItem(true);
         }}
       />
-    </>
+    </div>
   );
 }

@@ -1,7 +1,8 @@
 .timeline-root{
   min-height:100vh;
-  max-width:90svw;
+  max-width:100%;
   position:relative;
+  padding-bottom:40px;
 }
 
 /* YEAR SELECTOR */
