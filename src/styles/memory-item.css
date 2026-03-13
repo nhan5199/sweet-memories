@@ -147,9 +147,7 @@
   line-height: 1.6;
 
   color:white;
-}
 
-.description-card{
   p {
     max-height:100%;
     overflow-y: auto;
