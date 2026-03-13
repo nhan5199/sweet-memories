@@ -134,6 +134,7 @@
 @media (max-width:991px){
     .memory-item-container{
         width:90%;
+        height:auto !important;
 
         .memory-item{
             flex-direction:column;
