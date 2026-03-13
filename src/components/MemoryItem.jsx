@@ -132,10 +132,10 @@ const MemoryItem = ({ memory, onClose }) => {
 
   return (
     <div className="gallery-container" onClick={(e) => e.stopPropagation()}>
-      <span class="close-btn material-symbols-outlined" onClick={() => onClose()}>
+      <span className="close-btn material-symbols-outlined" onClick={() => onClose()}>
 close
 </span>
-<span class="material-symbols-outlined">
+<span className="material-symbols-outlined">
 close
 </span>
 
@@ -192,10 +192,10 @@ close
       </div>
 
       <div className="memory-action-container">
-          <span onClick={prevImage} class="pre-img material-symbols-outlined">
+          <span onClick={prevImage} className="pre-img material-symbols-outlined">
 arrow_back_ios
 </span>
-          <span onClick={nextImage} class="next-img material-symbols-outlined">
+          <span onClick={nextImage} className="next-img material-symbols-outlined">
 arrow_forward_ios
 </span>
       </div>

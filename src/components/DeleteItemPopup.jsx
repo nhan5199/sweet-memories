@@ -15,7 +15,7 @@ const DeleteItem = ({memory, onConfirm, onCancel}) => {
                     onCancel();
                 }}
                 >
-                <span class="material-symbols-outlined"> close </span>
+                <span className="material-symbols-outlined"> close </span>
             </button>
 
             <h3>Xóa kỷ niệm?</h3>

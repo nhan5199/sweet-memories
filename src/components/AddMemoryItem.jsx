@@ -55,7 +55,7 @@ const AddMemoryItem = ({onClose}) => {
 
   return (
     <div className="add-memory-item-container" onClick={(e) => e.stopPropagation()}>
-      <span class="close-btn material-symbols-outlined" onClick={() => onClose()}>
+      <span className="close-btn material-symbols-outlined" onClick={() => onClose()}>
 close
 </span>
       <div className="add-memory-title">Kỉ niệm mới</div>
@@ -106,7 +106,7 @@ close
 
           <div className="preview-add-imgs-container">
             <label htmlFor="memory-imgs" className="upload-box">
-              <span class="material-symbols-outlined">add</span>
+              <span className="material-symbols-outlined">add</span>
             </label>
 
             {/* Image previews */}
