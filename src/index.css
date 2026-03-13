@@ -25,9 +25,10 @@ code {
 :root{
   --primary-color: #f059de;
 
-
   --border-primary-color: #edade6;
   --border-color: #cfcfcf;
 
   --border-radius: 16px;
+
+  --error-color: red;
 }

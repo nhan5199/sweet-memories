@@ -1,6 +1,6 @@
 import "../styles/memory-item-card.css";
 
-const MemoryItemCard = ({ memory, onClick, onPreviewLoad }) => {
+const MemoryItemCard = ({ memory, onClick, onPreviewLoad, onDelete }) => {
 
   const previewImage = memory.imageUrls?.[0];
 
@@ -10,6 +10,17 @@ const MemoryItemCard = ({ memory, onClick, onPreviewLoad }) => {
       onClick={(e) => {onClick()}}
     >
       <div className="memory-item">
+        
+        <button
+          className="delete-icon"
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete();
+          }}
+        >
+          <span className="material-symbols-outlined"> close </span>
+        </button>
+
         <div className="image-wrapper">
           {previewImage && (
             <img
@@ -28,6 +39,8 @@ const MemoryItemCard = ({ memory, onClick, onPreviewLoad }) => {
           <p className="memory-item-description">{memory.description}</p>
         </div>
        </div>
+
+       
     </div>
   );
 };
