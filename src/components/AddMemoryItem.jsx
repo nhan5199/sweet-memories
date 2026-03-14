@@ -53,6 +53,7 @@ const AddMemoryItem = ({onClose}) => {
       setImages([]);
 
       onClose();
+      window.location.reload();
     } catch (error) {
       console.error("Error adding memory:", error);
     }
