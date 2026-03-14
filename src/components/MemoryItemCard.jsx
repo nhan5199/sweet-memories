@@ -29,13 +29,14 @@ const MemoryItemCard = ({ memory, onClick, onPreviewLoad, onDelete }) => {
               className="memory-item-img preview-img"
               onLoad={onPreviewLoad}
               onError={onPreviewLoad}
+              loading="lazy"
             />
           )}
         </div>
 
         <div className="information-container">
           <p className="memory-item-title">{memory.name}</p>
-          <p className="memory-item-time">{memory.time?.toDate().toLocaleDateString()}</p>
+          <p className="memory-item-time">{memory.time?.toDate().toLocaleDateString("vi-VN")}</p>
           <p className="memory-item-description" title={memory.description}>{memory.description}</p>
         </div>
        </div>

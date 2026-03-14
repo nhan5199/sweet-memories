@@ -24,6 +24,7 @@
         position: relative;
 
         .delete-icon{
+            background-color: transparent !important;
             position:absolute;
             right:10px;
             top:10px;
@@ -115,11 +116,11 @@
             .memory-item-description{
                 font-size: 0.875rem;
                 margin:0 !important;
-                word-break:break-all;
+                word-break:break-word;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 display: -webkit-box;
-                -webkit-line-clamp: 5;
+                -webkit-line-clamp: 4;
                 -webkit-box-orient: vertical;
             }
         }
@@ -144,16 +145,22 @@
             width:100%;
         }
 
-        .information-container{
-             gap:5px !important;
-             width:100% !important;
+        .memory-item{
+            .information-container{
+                gap:5px !important;
+                width:100% !important;
 
-            .memory-item-time{
-                font-size: 0.875rem !important;
-            }
+                .memory-item-title{
+                    max-width:100%;
+                }
 
-            .memory-item-description{
-                -webkit-line-clamp: 3;
+                .memory-item-time{
+                    font-size: 0.875rem !important;
+                }
+
+                .memory-item-description{
+                    -webkit-line-clamp: 3;
+                }
             }
         }
     }

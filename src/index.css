@@ -16,8 +16,38 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Pacifico", cursive;
 }
 
+p, input, textarea{
+  font-family: "Playwrite NZ Basic", cursive !important;
+}
+
 button {
   font-family: inherit !important;
+}
+
+.image{
+  will-change: transform;
+}
+
+img{
+  object-fit:cover;
+}
+
+.skeleton-year,
+.skeleton-img,
+.skeleton-text{
+  background:linear-gradient(
+    90deg,
+    #eeeeee 25%,
+    #f5f5f5 50%,
+    #eeeeee 75%
+  );
+  background-size:200% 100%;
+  animation:shimmer 1.2s infinite;
+}
+
+@keyframes shimmer{
+  0%{background-position:200% 0}
+  100%{background-position:-200% 0}
 }
 
 .grey-background{
@@ -39,4 +69,98 @@ button {
   --border-radius: 16px;
 
   --error-color: red;
+}
+
+.loading-dots {
+  display: inline-flex;
+  gap: 6px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.loading-container{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:20px;
+}
+
+.loading-image{
+  width:200px;
+  height:auto;
+  animation: zoomInOut 2s ease-in-out infinite;
+}
+
+.loading-container p{
+  margin:0;
+  font-size:14px;
+  font-weight:700;
+}
+
+.loading-dots{
+  display:flex;
+  gap:8px;
+}
+
+.loading-container.white{
+  .loading-dots span{
+    background-color:white;
+  }
+
+  p{
+    color:white;
+  }
+}
+
+.loading-container.black{
+  .loading-dots span{
+    background-color:black;
+  }
+
+  p{
+    color:black;
+  }
+}
+
+.loading-dots span{
+  display:block;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  animation:dotBlink 1.4s infinite;
+}
+
+.loading-dots span:nth-child(2){
+  animation-delay:0.2s;
+}
+
+.loading-dots span:nth-child(3){
+  animation-delay:0.4s;
+}
+
+.loading-dots span:nth-child(4){
+  animation-delay:0.6s;
+}
+
+.loading-dots span:nth-child(5){
+  animation-delay:0.8s;
+}
+
+@keyframes dotBlink{
+  0%{opacity:0; transform:translateY(0);}
+  50%{opacity:1; transform:translateY(-6px);}
+  100%{opacity:0; transform:translateY(0);}
+}
+
+@keyframes zoomInOut{
+  0%{
+    transform: scale(1);
+  }
+  50%{
+    transform: scale(1.15);
+  }
+  100%{
+    transform: scale(1);
+  }
 }

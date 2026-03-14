@@ -3,12 +3,14 @@ import { storage, db } from "../firebase/firebaseConfig";
 import { ref, uploadBytes } from "firebase/storage";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import '../styles/add-memory-item.css';
+import { Loading } from "../utils/Loading";
 
 const AddMemoryItem = ({onClose}) => {
   const [name, setName] = useState("");
   const [time, setTime] = useState("");
   const [description, setDescription] = useState("");
   const [images, setImages] = useState([]);
+  const [loading, setLoading]=useState(false);
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
@@ -18,6 +20,7 @@ const AddMemoryItem = ({onClose}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const uploadedImageNames = [];
@@ -41,6 +44,8 @@ const AddMemoryItem = ({onClose}) => {
         createdAt: serverTimestamp(),
       });
 
+      setLoading(false);
+
       // Reset form
       setName("");
       setTime("");
@@ -60,7 +65,7 @@ close
 </span>
       <div className="add-memory-title">Kỉ niệm mới</div>
 
-      <form className="add-memory-form" onSubmit={handleSubmit}>
+      {loading ? <Loading textColor={'black'} text={'Bé đợi nha, tầm 100 hình thì có khi cả chục phút đó'}/> : (<form className="add-memory-form" onSubmit={handleSubmit}>
         <div className="memory-form-item">
           <label htmlFor="memory-name">Tên kỉ niệm</label>
           <input
@@ -77,6 +82,7 @@ close
           <input
             type="date"
             id="memory-time"
+            placeholder="dd/mm/yyyy"
             value={time}
             onChange={(e) => setTime(e.target.value)}
             required
@@ -116,7 +122,7 @@ close
         </div>
 
         <button className="submit-memory-btn" type="submit">Lưu kỉ niệm</button>
-      </form>
+      </form>)}
     </div>
   );
 };

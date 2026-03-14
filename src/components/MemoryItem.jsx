@@ -1,35 +1,61 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../styles/memory-item.css";
+import { Loading } from "../utils/Loading";
 
 const MemoryItem = ({ memory, onClose }) => {
   const [title, setTitle] = useState("");
   const [animating, setAnimating] = useState(false);
 
   
+  const [loading, setLoading] = useState(true);
+  
   const slides = [
     { type: "description", text: memory.description },
     ...(memory.imageUrls || []).map((img) => ({ type: "image", src: img }))
   ];
-
   const [items, setItems] = useState(slides);
 
   const startX = useRef(null);
   const startY = useRef(null);
 
   // typing title effect
- useEffect(() => {
-  setTitle("");
-  let i = 0;
+  useEffect(() => {
+    setTitle("");
+    let i = 0;
 
-  const interval = setInterval(() => {
-    setTitle(memory.name.slice(0, i + 1));
-    i++;
+    const interval = setInterval(() => {
+      setTitle(memory.name.slice(0, i + 1));
+      i++;
 
-    if (i >= memory.name.length) clearInterval(interval);
-  }, 80);
+      if (i >= memory.name.length) clearInterval(interval);
+    }, 80);
 
-  return () => clearInterval(interval);
-}, [memory.name]);
+    return () => clearInterval(interval);
+  }, [memory.name]);
+
+  useEffect(() => {
+
+    const loadImages = async () => {
+
+      const imgs = memory.imageUrls || [];
+
+      await Promise.all(
+        imgs.map(src => {
+          return new Promise((resolve) => {
+            const img = new Image();
+            img.src = src;
+            img.onload = resolve;
+            img.onerror = resolve;
+          });
+        })
+      );
+
+      setLoading(false);
+    };
+
+    loadImages();
+
+  }, [memory]);
 
   const nextImage = () => {
     if (animating) return;
@@ -109,21 +135,44 @@ const MemoryItem = ({ memory, onClose }) => {
     };
 
     const handleTouchMove = (e) => {
-        if (!dragging.current) return;
+      if (!dragging.current) return;
 
-        const touch = e.touches[0];
+      const touch = e.touches[0];
 
-        const diffX = touch.clientX - startX.current;
-        const diffY = touch.clientY - startY.current;
+      const diffX = touch.clientX - startX.current;
+      const diffY = touch.clientY - startY.current;
 
-        if (diffX > 80) {
-          prevImage();
-          dragging.current = false;
-        } 
-        else if (diffX < -80 || diffY < -80) {
-          nextImage();
-          dragging.current = false;
+      const desc = e.target.closest(".description-card");
+
+      if (desc) {
+        const atTop = desc.scrollTop === 0;
+        const atBottom =
+          desc.scrollHeight - desc.scrollTop === desc.clientHeight;
+
+        // If user is scrolling inside description
+        if (
+          (diffY > 0 && !atTop) ||     // scrolling up but not at top
+          (diffY < 0 && !atBottom)     // scrolling down but not at bottom
+        ) {
+          return; // allow normal scroll
         }
+      }
+
+      // horizontal swipe
+      if (diffX > 80) {
+        prevImage();
+        dragging.current = false;
+      } 
+      else if (diffX < -80) {
+        nextImage();
+        dragging.current = false;
+      }
+
+      // vertical swipe up to change image
+      if (diffY < -80) {
+        nextImage();
+        dragging.current = false;
+      }
     };
 
     const handleTouchEnd = () => {
@@ -132,64 +181,65 @@ const MemoryItem = ({ memory, onClose }) => {
 
   return (
     <div className="gallery-container" onClick={(e) => e.stopPropagation()}>
-      <span className="close-btn material-symbols-outlined" onClick={() => onClose()}>
-close
-</span>
-<span className="material-symbols-outlined">
-close
-</span>
+     
+      <span className="close-btn material-symbols-outlined" onClick={() => onClose()}> close </span>
 
       <h1 className="memory-title">{title}</h1>
+       {loading ? (
+        <Loading textColor="white" text="Bé đợi hình load xíu nha"/>
+        ) : (
+          <div
+          className="image-wrapper"
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
 
-      <div
-        className="image-wrapper"
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          >
+          {items.map((item, index) => {
+            const offset = index * 10;
+            const scale = 1 - index * 0.04;
+            const rotate = (index % 2 === 0 ? 1 : -1) * index * 2;
 
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-        >
-        {items.map((item, index) => {
-          const offset = index * 10;
-          const scale = 1 - index * 0.04;
-          const rotate = (index % 2 === 0 ? 1 : -1) * index * 2;
+            const style = {
+              zIndex: items.length - index,
+              transform:
+                index === 0 && animating
+                  ? undefined
+                  : `translate(-50%, calc(-50% + ${offset}px)) rotate(${rotate}deg) scale(${scale})`,
+            };
 
-          const style = {
-            zIndex: items.length - index,
-            transform:
-              index === 0 && animating
-                ? undefined
-                : `translate(-50%, calc(-50% + ${offset}px)) rotate(${rotate}deg) scale(${scale})`,
-          };
+            if (item.type === "description") {
+              return (
+                <div
+                  key={"desc"}
+                  className={`image description-card ${index === 0 && animating ? "slide-out" : ""}`}
+                  style={style}
+                >
+                  <p>{item.text}</p>
+                </div>
+              );
+            }
 
-          if (item.type === "description") {
             return (
-              <div
-                key={"desc"}
-                className={`image description-card ${index === 0 && animating ? "slide-out" : ""}`}
+              <img
+                key={item.src}
+                src={item.src}
+                loading="lazy"
+                draggable="false"
+                onDragStart={(e) => e.preventDefault()}
+                className={`image ${index === 0 && animating ? "slide-out" : ""}`}
                 style={style}
-              >
-                <p>{item.text}</p>
-              </div>
+                alt="memory-img"
+              />
             );
-          }
-
-          return (
-            <img
-              key={item.src}
-              src={item.src}
-              draggable="false"
-              onDragStart={(e) => e.preventDefault()}
-              className={`image ${index === 0 && animating ? "slide-out" : ""}`}
-              style={style}
-              alt="memory-img"
-            />
-          );
-        })}
-      </div>
+          })}
+        </div>
+        )
+      }
 
       <div className="memory-action-container">
           <span onClick={prevImage} className="pre-img material-symbols-outlined">
