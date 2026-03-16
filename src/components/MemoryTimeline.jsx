@@ -4,11 +4,15 @@ import "../styles/memory-timeline.css";
 import { Loading } from "../utils/Loading.jsx";
 import DeleteItem from "./DeleteItemPopup";
 import MemoryItemCard from "./MemoryItemCard";
+import UpdateMemoryItem from "./UpdateMemoryItem.jsx"
 
 export default function MemoryTimeline({ memories, onMemoryClick }) {
   const [selectedYear, setSelectedYear] = useState(null);
   const [collapsedMonths, setCollapsedMonths] = useState({});
   const [deleteTarget, setDeleteTarget] = useState(null);
+  const [selectedMemoryId, setSelectedMemoryId] = useState(null);
+
+  const selectedMemory = memories?.find(m => m.id === selectedMemoryId);
 
   //Lấy dữ liệu và tách theo năm -> tháng
   const timeline = useMemo(() => {
@@ -187,6 +191,7 @@ export default function MemoryTimeline({ memories, onMemoryClick }) {
                           memory={memory}
                           onClick={() => handleMemoryClick(memory)}
                           onDelete={() => setDeleteTarget(memory)}
+                          onUpdate={(id) => setSelectedMemoryId(id)}
                         />
                       ))}
                     </div>
@@ -203,6 +208,14 @@ export default function MemoryTimeline({ memories, onMemoryClick }) {
         onConfirm={handleDeleteConfirm}
         onCancel={() => setDeleteTarget(null)}
       />
+      
+      {selectedMemory && (
+        <UpdateMemoryItem
+          memory={selectedMemory}
+          onClose={() => setSelectedMemoryId(null)}
+        />
+      )}
     </div>
+    
   );
 }

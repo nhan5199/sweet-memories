@@ -1,6 +1,6 @@
 import "../styles/memory-item-card.css";
 
-const MemoryItemCard = ({ memory, onClick, onPreviewLoad, onDelete }) => {
+const MemoryItemCard = ({ memory, onClick, onPreviewLoad, onDelete, onUpdate }) => {
 
   const previewImage = memory.imageUrls?.[0];
 
@@ -11,6 +11,16 @@ const MemoryItemCard = ({ memory, onClick, onPreviewLoad, onDelete }) => {
     >
       <div className="memory-item">
         
+        <button
+          className="update-icon"
+          onClick={(e) => {
+            e.stopPropagation();
+            onUpdate(memory.id);
+          }}
+        >
+          <span class="material-symbols-outlined"> edit </span>
+        </button>
+
         <button
           className="delete-icon"
           onClick={(e) => {

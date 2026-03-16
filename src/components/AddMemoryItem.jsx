@@ -66,7 +66,9 @@ close
 </span>
       <div className="add-memory-title">Kỉ niệm mới</div>
 
-      {loading ? <Loading textColor={'black'} text={'Bé đợi nha, tầm 100 hình thì có khi cả chục phút đó'}/> : (<form className="add-memory-form" onSubmit={handleSubmit}>
+      {loading 
+      ? <Loading textColor={'black'} text={'Bé đợi nha, tầm 100 hình thì có khi cả chục phút đó'} type={'popup'}/> 
+      : (<form className="add-memory-form" onSubmit={handleSubmit}>
         <div className="memory-form-item">
           <label htmlFor="memory-name">Tên kỉ niệm</label>
           <input

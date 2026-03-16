@@ -1,5 +1,5 @@
-export const Loading = ({textColor, text}) => {
-  return <div className={`loading-container ${textColor}`}>
+export const Loading = ({textColor, text, type}) => {
+  return <div className={`loading-container ${textColor} ${type}`}>
     <img src="/loading-image.png" alt="" className="loading-image" />
 
     <p>{text}</p>

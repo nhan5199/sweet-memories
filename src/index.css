@@ -85,7 +85,14 @@ img{
   flex-direction:column;
   align-items:center;
   justify-content:center;
+  text-align: center;
   gap:20px;
+  margin:0 auto;
+}
+
+.loading-container.popup{
+  min-width:90%;
+  max-width:90%;
 }
 
 .loading-image{

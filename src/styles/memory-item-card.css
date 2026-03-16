@@ -23,7 +23,7 @@
         border:2px solid var(--border-color);
         position: relative;
 
-        .delete-icon{
+        .delete-icon, .update-icon{
             background-color: transparent !important;
             position:absolute;
             right:10px;
@@ -37,6 +37,11 @@
             align-items: center;
             justify-content: center;
             border:none !important;
+        }
+
+        .update-icon{
+            top: 40px;
+            color: green;
         }
 
         .delete-item:hover{
