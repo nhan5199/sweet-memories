@@ -173,3 +173,23 @@ img{
     transform: scale(1);
   }
 }
+
+.music-btn{
+  border:none !important;
+  background-color: transparent !important;
+  position:absolute;
+  top:30px;
+  left:30px;
+  cursor: pointer;
+  transition: .75s ease;
+  z-index: 600;
+
+  span{
+    font-size:30px;
+    cursor: pointer;
+  }
+}
+
+.music-btn:hover{
+  transform: scale(1.1);
+}

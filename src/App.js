@@ -4,6 +4,7 @@ import MemoryTimeline from "./components/MemoryTimeline";
 import AddMemoryItem from "./components/AddMemoryItem";
 import MemoryItem from "./components/MemoryItem";
 import '../src/styles/home.css'
+import MusicPlayer from "./components/MusicPlayer";
 
 export default function PostData() {
   const [memories, setMemories] = useState([]);
@@ -29,6 +30,9 @@ export default function PostData() {
 
   return (
     <div className="container">
+      {/* Audio */}
+      <MusicPlayer/>
+
       {/* ADD BUTTON */}
       <button
         className="add-item-button"
